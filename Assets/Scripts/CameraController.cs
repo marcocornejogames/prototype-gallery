@@ -33,18 +33,19 @@ public class CameraController : MonoBehaviour
 		_movementEvent.Invoke(_movementInput);
 		_rotationEvent.Invoke(_rotationInput);
     }
-	private void OnMove(InputValue input)
+	private void OnMoveCam(InputValue input)
     {
 
 		_movementInput = input.Get<Vector2>();
     }
 
-	private void OnRotate(InputValue input)
+	private void OnRotateCam(InputValue input)
     {
 		_rotationInput = input.Get<float>();
     }
 
-	private void OnScroll(InputValue input)
+	private void OnScrollCam
+		(InputValue input)
     {
 		_scrollInput = input.Get<Vector2>();
 
