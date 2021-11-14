@@ -1,5 +1,5 @@
 {
-    "name": "CameraControls",
+    "name": "ResourceManagement",
     "maps": [
         {
             "name": "Player",
@@ -26,6 +26,22 @@
                     "type": "Value",
                     "id": "c65dcb03-6950-44ec-91c9-f4d6395154bb",
                     "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "CursorMove",
+                    "type": "Value",
+                    "id": "e98aa303-64d1-4d89-9123-3566a878a4a9",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "MouseClick",
+                    "type": "Button",
+                    "id": "a2ce10fb-9e81-45d1-96b0-9d17aee9eb50",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
                 }
@@ -173,6 +189,50 @@
                     "action": "ScrollCam",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2d0e6b74-a76a-4e03-87b7-2a52dfd4268e",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CursorMove",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "1D Axis",
+                    "id": "22339190-1e56-42ca-a936-7943a694c44e",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MouseClick",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "ea483d21-c966-455a-adf7-6677e0caf327",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MouseClick",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "40cb4f49-42d4-4e49-a72e-843b5a44f927",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MouseClick",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         },
