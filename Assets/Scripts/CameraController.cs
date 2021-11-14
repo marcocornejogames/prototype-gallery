@@ -48,6 +48,12 @@ public class CameraController : MonoBehaviour
     {
 		_scrollInput = input.Get<Vector2>();
 
-		_scrollEvent.Invoke(_scrollInput.y);
+		float broadcastValue = 0;
+		if(_scrollInput.y != 0)
+        {
+			if (_scrollInput.y > 0) broadcastValue = 1;
+			else broadcastValue = -1;
+        }
+		_scrollEvent.Invoke(broadcastValue);
     }
 }
