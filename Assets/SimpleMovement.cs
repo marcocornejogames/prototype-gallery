@@ -36,8 +36,9 @@ public class SimpleMovement : MonoBehaviour
     //Custom Methods _______________________________________________
     private void ApplyMovement()
     {
-        transform.LookAt(new Vector3(Camera.main.transform.forward.x, transform.position.y, Camera.main.transform.forward.z));
-        if(_rigidbody.velocity.magnitude <= _movementSpeed) _rigidbody.AddForce(new Vector3(_movementInput.x, 0f, _movementInput.y) * _movementAcceleration);
+        Vector3 controlRight = Vector3.Cross(Camera.main.transform.up, Camera.main.transform.forward);
+        Vector3 controlForward = Vector3.Cross(Camera.main.transform.right, Vector3.up);
+        if(_rigidbody.velocity.magnitude <= _movementSpeed) _rigidbody.AddRelativeForce(((_movementInput.x * controlRight) + (_movementInput.y * controlForward)) * _movementAcceleration);
     }
     public void UpdateMovementInput(Vector2 input)
     {

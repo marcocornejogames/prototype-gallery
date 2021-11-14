@@ -4,16 +4,13 @@ using UnityEngine;
 using Cinemachine;
 
 // Marco, November 13th
-public class CameraRotation : MonoBehaviour
+public class CameraHeight : MonoBehaviour
 {
-	[Header("Component References")]
-	[SerializeField] private CinemachineFreeLook _camera;
+    [Header("Component References")]
+    [SerializeField] private CinemachineFreeLook _camera;
 
-    [Header("Customization")]
-    [SerializeField] private bool _xAxis;
-
-	[Header("Feedback")]
-	[SerializeField] private float _rotationInput;
+    [Header("Feedback")]
+    [SerializeField] private float _rotationInput;
 
     //Unity Messages ______________________________________________
     private void Awake()
@@ -24,8 +21,8 @@ public class CameraRotation : MonoBehaviour
     {
     }
 
-   	void Update()
-	{
+    void Update()
+    {
 
     }
 
@@ -36,10 +33,9 @@ public class CameraRotation : MonoBehaviour
 
     //Custom Methods _______________________________________________
     private void ApplyRotation()
-	{
-        if (_xAxis) _camera.m_XAxis.m_InputAxisValue = _rotationInput;
-        else _camera.m_YAxis.m_InputAxisValue = _rotationInput;
-	}
+    {
+        _camera.m_XAxis.m_InputAxisValue = _rotationInput;
+    }
     public void UpdateRotationInput(float input)
     {
         _rotationInput = input;

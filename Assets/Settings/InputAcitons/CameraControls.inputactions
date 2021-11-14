@@ -20,6 +20,14 @@
                     "expectedControlType": "Analog",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Scroll",
+                    "type": "Value",
+                    "id": "c65dcb03-6950-44ec-91c9-f4d6395154bb",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -154,6 +162,17 @@
                     "action": "Rotate",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "3501aeda-395d-4e8b-8bde-d43e3fd1a5b9",
+                    "path": "<Mouse>/scroll",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Scroll",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
