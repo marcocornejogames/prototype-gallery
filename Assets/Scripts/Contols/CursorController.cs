@@ -34,7 +34,7 @@ public class CursorController : MonoBehaviour
 
 	private void UpdateRay()
     {
-		_mouseRay = Camera.main.ScreenPointToRay(_cursorPosition);
+		_mouseRay = Camera.main.ScreenPointToRay(_cursorPosition); 
 	}
 
 	private void CheckIsHovering()
@@ -55,8 +55,6 @@ public class CursorController : MonoBehaviour
 
 		_currentlyHovering?.Hover(false); //Not hovering over hoverable object
 		_currentlyHovering = null;
-
-
 
     }
 
