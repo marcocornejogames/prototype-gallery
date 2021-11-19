@@ -9,9 +9,7 @@ public class ThirdPersonPlayerController : MonoBehaviour
 	[Header("Component References")]
 	[SerializeField] private GameEvent<Vector2> _onMoveEvent;
 	[SerializeField] private GameEvent<Vector2> _onLookEvent;
-
-	[Header("Customization")]
-	[SerializeField] private bool _customBool;
+	[SerializeField] private BoolEvent _onJumpEvent;
 
 	[Header("Feedback")]
 	[SerializeField] private Vector2 _moveInput;
@@ -36,6 +34,11 @@ public class ThirdPersonPlayerController : MonoBehaviour
 	private void OnLook(InputValue input)
     {
 		_lookInput = input.Get<Vector2>();
+    }
+
+	private void OnJump()
+    {
+		_onJumpEvent.Invoke(true);
     }
 
 	//Input Broadcasting _________________________________________
