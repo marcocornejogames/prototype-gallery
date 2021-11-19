@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 // Name, Date
-public class CameraController : MonoBehaviour
+public class FloatingCameraController : MonoBehaviour
 {
 	[Header("Component References")]
 	[SerializeField] private GameEvent<Vector2> _movementEvent;
