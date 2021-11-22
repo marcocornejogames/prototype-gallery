@@ -8,6 +8,7 @@ public class CharacterMovement : MonoBehaviour
 	[Header("Component References")]
 	[SerializeField] private Rigidbody _rigidbody;
     [SerializeField] private GroundCheck _groundCheck;
+    [SerializeField] private ThirdPersonAnimation _animationController;
 
 	[Header("Horizontal Movement Customization")]
 	[SerializeField] private bool _canMove = true;
@@ -24,11 +25,14 @@ public class CharacterMovement : MonoBehaviour
 	[SerializeField] private Vector3 _moveInput;
     [SerializeField] private Vector3 _lookDirection;
 
+    public Vector3 GroundNormal => _groundCheck.GroundNormal;
+
     //Unity Messages ______________________________________________
     private void Awake()
     {
 		_rigidbody = GetComponent<Rigidbody>();
         _groundCheck = GetComponentInChildren<GroundCheck>();
+        _animationController = GetComponentInChildren<ThirdPersonAnimation>();
     }
     void Start()
     {
@@ -43,6 +47,7 @@ public class CharacterMovement : MonoBehaviour
     {
         ApplyMovementPhysics();
         ApplyLookDirection();
+        UpdateMovementAnimation();
     }
 
     //Custom Methods _______________________________________________
@@ -57,7 +62,7 @@ public class CharacterMovement : MonoBehaviour
         velocityDiff.y = 0;
 
         Vector3 acceleration = velocityDiff * _acceleration * control;
-        acceleration -= Vector3.up * _manualGravity; //Apply extra gravity
+        acceleration -= GroundNormal * _manualGravity; //Apply extra gravity
         _rigidbody.AddForce(acceleration);
 
     }
@@ -67,12 +72,19 @@ public class CharacterMovement : MonoBehaviour
         Quaternion targetRotation = Quaternion.LookRotation(_lookDirection);
         Quaternion rotation = Quaternion.Slerp(transform.rotation, targetRotation, _turnSpeed * Time.fixedDeltaTime);
         _rigidbody.MoveRotation(rotation);
+
+        _animationController.UpdateRotationAnimation(rotation, targetRotation);
+        _animationController.SetIsGrounded(_groundCheck.IsGrounded);
     }
 
     private void SetLookDirection(Vector3 direction)
     {
         direction.y = 0f;
         _lookDirection = direction.normalized;
+    }
+    private void UpdateMovementAnimation()
+    {
+        _animationController.SetMovementAxis(_moveInput);
     }
 
     //Event Calls __________________________________________________
@@ -95,6 +107,7 @@ public class CharacterMovement : MonoBehaviour
         Vector3 jumpVelocity = _rigidbody.velocity;
         jumpVelocity.y = jumpSpeed;
         _rigidbody.velocity = jumpVelocity;
+        _animationController.OnJump();
     }
 
 }

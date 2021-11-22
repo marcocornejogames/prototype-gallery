@@ -13,6 +13,7 @@ public class GroundCheck : MonoBehaviour
 	[SerializeField] private Vector3 _groundCheckEnd = new Vector3(0, 0.1f, 0f);
 
 	[SerializeField] public bool IsGrounded { get; private set; }
+	[SerializeField] public Vector3 GroundNormal { get; private set; }
 
 	//Unity Messages ______________________________________________
 	void Start()
@@ -51,8 +52,11 @@ public class GroundCheck : MonoBehaviour
 
 		if(Physics.SphereCast(start, _groundCheckRadius, -transform.up, out RaycastHit hitInfo, distance, _groundMask))
         {
+			GroundNormal = hitInfo.normal;
 			return true;
         }
+
+		GroundNormal = Vector3.up;
 
 		return false;
 	}

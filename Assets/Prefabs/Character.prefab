@@ -81,8 +81,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _characterMovement: {fileID: 0}
-  _useCameraForward: 1
-  _moveInput: {x: 0, y: 0}
+  _customBool: 0
+  _movementInput: {x: 0, y: 0}
 --- !u!114 &4119158877194400605
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -97,6 +97,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rigidbody: {fileID: 0}
   _groundCheck: {fileID: 0}
+  _animationController: {fileID: 0}
   _canMove: 1
   _turnSpeed: 2
   _speed: 10
@@ -106,7 +107,6 @@ MonoBehaviour:
   _airControlPercentage: 0.1
   _moveInput: {x: 0, y: 0, z: 0}
   _lookDirection: {x: 0, y: 0, z: 0}
-  _isGrounded: 0
 --- !u!114 &4119158877194400602
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,8 +123,8 @@ MonoBehaviour:
   _broadcastEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4119158877194400600}
-        m_TargetAssemblyTypeName: ThirdPersonCharacter, Assembly-CSharp
+      - m_Target: {fileID: 4119158877194400605}
+        m_TargetAssemblyTypeName: CharacterMovement, Assembly-CSharp
         m_MethodName: UpdateMoveInput
         m_Mode: 0
         m_Arguments:
@@ -277,8 +277,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48a05ac360756f74bbee92f64e68e122, type: 3}
+--- !u!1 &1860646715190111535 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 48a05ac360756f74bbee92f64e68e122, type: 3}
+  m_PrefabInstance: {fileID: 1518611949530271870}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1340252966440351637 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 48a05ac360756f74bbee92f64e68e122, type: 3}
   m_PrefabInstance: {fileID: 1518611949530271870}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1166807835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1860646715190111535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 317dc6c27bd933349a6ef1fb3e5a3ad7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animator: {fileID: 0}
+  _movementDampTime: 0.3
+  _rotationDampTime: 0.05
+  _minimumRotationForDetaction: 0.3
+  _maximumRotationForDetection: 1
+  _feedbackInt: 0
