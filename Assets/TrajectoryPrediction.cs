@@ -37,7 +37,6 @@ public class TrajectoryPrediction : MonoBehaviour
         _predictionPhysicsScene = _predictionScene.GetPhysicsScene();
 
         _obstacles = GameObject.FindGameObjectsWithTag("Obstacle");
-        ImportObjstacles();
 
     }
 
@@ -51,6 +50,8 @@ public class TrajectoryPrediction : MonoBehaviour
 
     public void Predict(Vector3 force)
     {
+        ImportObjstacles();
+
         //Debug.Log("Trying to predict");
         if (_currentPhysicsScene.IsValid() && _predictionScene.IsValid())
         {
@@ -62,6 +63,7 @@ public class TrajectoryPrediction : MonoBehaviour
             }
 
             _dummyObject.transform.position = transform.position;
+            _dummyObject.GetComponent<Rigidbody>().velocity = gameObject.GetComponent<Rigidbody>().velocity;
             _dummyObject.GetComponent<Rigidbody>().AddForce(force);
 
             _lineRenderer.positionCount = _maxIterations;
@@ -75,6 +77,7 @@ public class TrajectoryPrediction : MonoBehaviour
         }
 
         Destroy(_dummyObject);
+        DestroyAllDummyObstacles();
     }
 
     private void ImportObjstacles()
@@ -85,8 +88,21 @@ public class TrajectoryPrediction : MonoBehaviour
             Renderer dummyRenderer = dummyObstacle.GetComponent<Renderer>();
             if (dummyRenderer != null) dummyRenderer.enabled = false;
 
+            Rigidbody dummyRG = dummyObstacle.GetComponent<Rigidbody>();
+            //if (dummyRG != null) dummyRG.isKinematic = true;
+
             SceneManager.MoveGameObjectToScene(dummyObstacle, _predictionScene);
             _dummyObstacles.Add(dummyObstacle);
         }
+    }
+
+    private void DestroyAllDummyObstacles()
+    {
+        foreach (GameObject obstacle in _dummyObstacles)
+        {
+            Destroy(obstacle);
+        }
+
+        _dummyObstacles.Clear();
     }
 }

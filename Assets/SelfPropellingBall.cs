@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class SelfPropellingBall : MonoBehaviour
 {
+    [SerializeField] private LineRenderer _lineRenderer;
     [SerializeField] private TrajectoryPrediction _trajectoryPrediction;
     [SerializeField] private LayerMask _groundLayerMask;
     [SerializeField] private float _propellingForce = 10f;
     [SerializeField] private Rigidbody _rigidbody;
+    [SerializeField] private float _minimumRenderingStillness = 2f;
     private Ray _mouseRay;
 
     public Vector3 ProjectileForce;
@@ -16,10 +18,15 @@ public class SelfPropellingBall : MonoBehaviour
     {
         _rigidbody = GetComponent<Rigidbody>();
         _trajectoryPrediction = GetComponent<TrajectoryPrediction>();
+        _lineRenderer = GetComponent<LineRenderer>();
     }
     public void UpdateCursorRay(Ray ray)
     {
         _mouseRay = ray;
+    }
+
+    private void Update()
+    {
     }
 
     private void FixedUpdate()
@@ -29,8 +36,13 @@ public class SelfPropellingBall : MonoBehaviour
     }
     public void OnClick(bool onClick)
     {
-        if (!onClick) return;
+        if (!onClick)
+        {
+            _lineRenderer.enabled = true;
+            return;
+        }
         ApplyForce();
+        _lineRenderer.enabled = false;
     }
     private void ApplyForce()
     {
@@ -53,6 +65,6 @@ public class SelfPropellingBall : MonoBehaviour
     {
         Vector3 forceDirection = (GetCursorWorldPosition() - transform.position);
         ProjectileForce = forceDirection * _propellingForce;
-        ProjectileForce.y = 0;
+        ProjectileForce.y = transform.position.y;
     }
 }

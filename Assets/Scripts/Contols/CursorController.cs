@@ -65,6 +65,11 @@ public class CursorController : MonoBehaviour
 		_leftClickEvent.Invoke(true);
 	}
 
+	private void OnRightClick()
+    {
+		_leftClickEvent.Invoke(false);
+    }
+
 	private void OnCursorMove(InputValue input)
     {
 		_cursorPosition = input.Get<Vector2>();
