@@ -7,7 +7,8 @@ using UnityEngine.InputSystem;
 public class CursorController : MonoBehaviour
 {
 	[Header("Component References")]
-	[SerializeField] private GameEvent<Vector2> _cursorPositionEvent;
+	[SerializeField] private GameEvent<Ray> _mouseRayEvent;
+	[SerializeField] private GameEvent<bool> _leftClickEvent;
 
 	[Header("Customization")]
 	[SerializeField] private LayerMask _hoverableLayerMask;
@@ -15,7 +16,6 @@ public class CursorController : MonoBehaviour
 	[Header("Feedback")]
 	[SerializeField] private Vector3 _cursorPosition;
 	[SerializeField] private iHoverable _currentlyHovering;
-	[SerializeField] private float _mouseClickAxis;
 	[SerializeField] private Ray _mouseRay;
 
 	//Unity Messages ______________________________________________
@@ -34,7 +34,8 @@ public class CursorController : MonoBehaviour
 
 	private void UpdateRay()
     {
-		_mouseRay = Camera.main.ScreenPointToRay(_cursorPosition); 
+		_mouseRay = Camera.main.ScreenPointToRay(_cursorPosition);
+		_mouseRayEvent.Invoke(_mouseRay);
 	}
 
 	private void CheckIsHovering()
@@ -59,10 +60,9 @@ public class CursorController : MonoBehaviour
     }
 
 	//Input Messages _______________________________________________
-	private void OnMouseClick(InputValue input)
+	private void OnLeftClick()
 	{
-		_mouseClickAxis = input.Get<float>();
-
+		_leftClickEvent.Invoke(true);
 	}
 
 	private void OnCursorMove(InputValue input)
