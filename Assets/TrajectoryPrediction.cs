@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+[RequireComponent(typeof(LineRenderer))]
 public class TrajectoryPrediction : MonoBehaviour
 {
+    public static TrajectoryPrediction Instance;
     [SerializeField] private LineRenderer _lineRenderer;
     [SerializeField] private int _maxIterations;
     [SerializeField] private GameObject[] _obstacles;
@@ -19,8 +21,11 @@ public class TrajectoryPrediction : MonoBehaviour
 
     private GameObject _dummyObject;
 
+
     private void Awake()
     {
+        Instance = this;
+
         _lineRenderer = GetComponent<LineRenderer>();
         _dummyObstacles = new List<GameObject>();
 
@@ -48,7 +53,7 @@ public class TrajectoryPrediction : MonoBehaviour
         }
     }
 
-    public void Predict(Vector3 force)
+    public void Predict(Vector3 force, GameObject subject)
     {
         ImportObjstacles();
 
@@ -58,12 +63,12 @@ public class TrajectoryPrediction : MonoBehaviour
             //Debug.Log("Predicting");
             if (_dummyObject == null) //Instantiate dummy object if not available
             {
-                _dummyObject = Instantiate(gameObject);
+                _dummyObject = Instantiate(subject);
                 SceneManager.MoveGameObjectToScene(_dummyObject, _predictionScene);
             }
 
-            _dummyObject.transform.position = transform.position;
-            _dummyObject.GetComponent<Rigidbody>().velocity = gameObject.GetComponent<Rigidbody>().velocity;
+            _dummyObject.transform.position = subject.transform.position;
+            _dummyObject.GetComponent<Rigidbody>().velocity = subject.GetComponent<Rigidbody>().velocity;
             _dummyObject.GetComponent<Rigidbody>().AddForce(force);
 
             _lineRenderer.positionCount = _maxIterations;
@@ -78,6 +83,12 @@ public class TrajectoryPrediction : MonoBehaviour
 
         Destroy(_dummyObject);
         DestroyAllDummyObstacles();
+    }
+
+    public void ToggleLineRenderer(bool isOn)
+    {
+        _lineRenderer.enabled = isOn;
+        if(!isOn) _lineRenderer.positionCount = 0;
     }
 
     private void ImportObjstacles()

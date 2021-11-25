@@ -4,21 +4,22 @@ using UnityEngine;
 
 public class SelfPropellingBall : MonoBehaviour
 {
-    [SerializeField] private LineRenderer _lineRenderer;
-    [SerializeField] private TrajectoryPrediction _trajectoryPrediction;
     [SerializeField] private LayerMask _groundLayerMask;
     [SerializeField] private float _propellingForce = 10f;
     [SerializeField] private Rigidbody _rigidbody;
-    [SerializeField] private float _minimumRenderingStillness = 2f;
+    [SerializeField] private Projectile _projectile;
+    [SerializeField] private bool _predictPath = true;
     private Ray _mouseRay;
 
     public Vector3 ProjectileForce;
 
+
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
-        _trajectoryPrediction = GetComponent<TrajectoryPrediction>();
-        _lineRenderer = GetComponent<LineRenderer>();
+        _projectile = GetComponent<Projectile>();
+
+
     }
     public void UpdateCursorRay(Ray ray)
     {
@@ -32,21 +33,23 @@ public class SelfPropellingBall : MonoBehaviour
     private void FixedUpdate()
     {
         CalculateForce();
-        _trajectoryPrediction.Predict(ProjectileForce);
+        if(_predictPath) _projectile.PredictTrajectory(ProjectileForce);
     }
     public void OnClick(bool onClick)
     {
         if (!onClick)
         {
-            _lineRenderer.enabled = true;
+            _predictPath = true;
+            _projectile.TogglePredictionRendering(_predictPath);
             return;
         }
+        _predictPath = false;
+
         ApplyForce();
-        _lineRenderer.enabled = false;
+        _projectile.TogglePredictionRendering(_predictPath);
     }
     private void ApplyForce()
     {
-
         _rigidbody.AddForce(ProjectileForce);
     }
     private Vector3 GetCursorWorldPosition()
