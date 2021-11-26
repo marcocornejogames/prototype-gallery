@@ -147,7 +147,7 @@ public class CharacterMovement : MonoBehaviour
     {
         if (!_groundCheck.IsGrounded) return;
 
-        if (_currentMovementMode == MovementMode.Crouching) ToggleCrouch();
+        _currentMovementMode = MovementMode.Regular;
 
         float jumpSpeed = Mathf.Sqrt(2f * _manualGravity * _jumpHeight);
         Vector3 jumpVelocity = _rigidbody.velocity;

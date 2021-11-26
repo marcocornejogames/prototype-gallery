@@ -60,6 +60,6 @@ public class ThirdPersonAnimation : MonoBehaviour
 
 	public void ToggleSprint(bool isSprinting)
     {
-
+		_animator.SetBool("IsSprinting", isSprinting);
     }
 }
