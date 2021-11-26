@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// Name, Date
+// Marco, November 25th
 public class ThirdPersonAnimation : MonoBehaviour
 {
 	[Header("Component References")]
@@ -10,9 +10,6 @@ public class ThirdPersonAnimation : MonoBehaviour
 
 	[Header("Customization")]
 	[SerializeField] private float _movementDampTime = 0.5f;
-	[SerializeField] private float _rotationDampTime = 0.1f;
-	[SerializeField] private float _minimumRotationForDetaction = 0.1f;
-	[SerializeField] private float _maximumRotationForDetection = 90f;
 
 	[Header("Feedback")]
 	[SerializeField] private int _feedbackInt;
@@ -54,5 +51,15 @@ public class ThirdPersonAnimation : MonoBehaviour
 	public void OnJump()
     {
 		_animator.SetTrigger("Jump");
+    }
+
+	public void ToggleCrouch(bool isCrouching)
+    {
+		_animator.SetBool("IsCrouching", isCrouching);
+    }
+
+	public void ToggleSprint(bool isSprinting)
+    {
+
     }
 }

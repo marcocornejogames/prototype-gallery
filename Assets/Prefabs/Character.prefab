@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: 4119158877194400605}
   - component: {fileID: 4119158877194400602}
   - component: {fileID: 4119158877194400604}
+  - component: {fileID: 1173197316380431114}
+  - component: {fileID: 7611345425814274223}
   m_Layer: 3
   m_Name: Character
   m_TagString: Untagged
@@ -105,8 +107,15 @@ MonoBehaviour:
   _manualGravity: 20
   _jumpHeight: 2
   _airControlPercentage: 0.1
+  _canCrouch: 1
+  _crouchSpeed: 6
+  _crouchAcceleration: 3
+  _canSprint: 1
+  _sprintSpeed: 15
+  _sprintAcceleration: 10
   _moveInput: {x: 0, y: 0, z: 0}
   _lookDirection: {x: 0, y: 0, z: 0}
+  _currentMovementMode: 0
 --- !u!114 &4119158877194400602
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155,6 +164,62 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: CharacterMovement, Assembly-CSharp
         m_MethodName: TryJump
         m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1173197316380431114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4119158877194402981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 353c9cd28d61e2c4fa95cea8b4915228, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _triggerEvent: {fileID: 11400000, guid: 6811999d252b2dd499c34d682e9bc9d0, type: 2}
+  _broadcastEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4119158877194400605}
+        m_TargetAssemblyTypeName: CharacterMovement, Assembly-CSharp
+        m_MethodName: ToggleCrouch
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &7611345425814274223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4119158877194402981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 353c9cd28d61e2c4fa95cea8b4915228, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _triggerEvent: {fileID: 11400000, guid: 0364dacd52b8d6e4ca317a54b1d92e27, type: 2}
+  _broadcastEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4119158877194400605}
+        m_TargetAssemblyTypeName: CharacterMovement, Assembly-CSharp
+        m_MethodName: ToggleSprint
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -275,6 +340,10 @@ PrefabInstance:
       propertyPath: m_ApplyRootMotion
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6860641434701783778, guid: 48a05ac360756f74bbee92f64e68e122, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cde5c21d0488cfd47b96327276fca835, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48a05ac360756f74bbee92f64e68e122, type: 3}
 --- !u!1 &1860646715190111535 stripped
@@ -301,7 +370,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _animator: {fileID: 0}
   _movementDampTime: 0.3
-  _rotationDampTime: 0.05
-  _minimumRotationForDetaction: 0.3
-  _maximumRotationForDetection: 1
   _feedbackInt: 0
