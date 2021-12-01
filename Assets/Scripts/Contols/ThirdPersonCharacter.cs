@@ -68,6 +68,7 @@ public class ThirdPersonCharacter : MonoBehaviour
 
 			if(_characterStats.CurrentStamina <= 0)
             {
+				Debug.Log($"CRITICAL STAMINA: {_characterStats.CurrentStamina} / {_characterStats.MaxStamina}");
 				_characterStats.CurrentStamina = 0;
 				_characterMovement.Trip();
             }

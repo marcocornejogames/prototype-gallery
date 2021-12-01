@@ -119,22 +119,22 @@ public class CharacterMovement : MonoBehaviour
 
     private void SetLookDirection(Vector3 direction)
     {
+        if (!_canMove) return;
         direction.y = 0f;
         _lookDirection = direction.normalized;
     }
 
     public void Trip()
     {
-        LockAllMovement();
+        EnableMovement(false);
+        ToggleSprint(false);
+
+        if (!_groundCheck.IsGrounded) return;
+        //_rigidbody.velocity = Vector3.zero;
+        _animationController.OnTrip();
     }
 
-    private void LockAllMovement()
-    {
-        _canMove = false;
-        _canJump = false;
-        _canSprint = false;
-        _canCrouch = false;
-    }
+
     //Animation _____________________________________________________
     private void UpdateMovementAnimation()
     {
@@ -185,5 +185,13 @@ public class CharacterMovement : MonoBehaviour
     {
         if (isSprinting && _canSprint) CurrentMovementMode = MovementMode.Sprinting;
         else CurrentMovementMode = MovementMode.Regular;
+    }
+
+    public void EnableMovement(bool canMove)
+    {
+        _canMove = canMove;
+        _canJump = canMove;
+        _canSprint = canMove;
+        _canCrouch = canMove;
     }
 }

@@ -7,12 +7,11 @@ public class ThirdPersonAnimation : MonoBehaviour
 {
 	[Header("Component References")]
 	[SerializeField] private Animator _animator;
+	[SerializeField] private BoolEvent _lockMovementEvent;
 
 	[Header("Customization")]
 	[SerializeField] private float _movementDampTime = 0.5f;
 
-	[Header("Feedback")]
-	[SerializeField] private int _feedbackInt;
 
     //Unity Messages ______________________________________________
     private void Awake()
@@ -43,14 +42,10 @@ public class ThirdPersonAnimation : MonoBehaviour
 
     }
 
+	//Set Bools _______________________________________________________________________________
 	public void SetIsGrounded(bool isGrounded)
     {
 		_animator.SetBool("IsGrounded", isGrounded);
-    }
-
-	public void OnJump()
-    {
-		_animator.SetTrigger("Jump");
     }
 
 	public void ToggleCrouch(bool isCrouching)
@@ -61,5 +56,23 @@ public class ThirdPersonAnimation : MonoBehaviour
 	public void ToggleSprint(bool isSprinting)
     {
 		_animator.SetBool("IsSprinting", isSprinting);
+    }
+	
+	//Animation Triggers ____________________________________________________________________________
+	public void OnJump()
+	{
+		_animator.SetTrigger("Jump");
+	}
+	public void OnTrip()
+	{
+		_animator.SetTrigger("Trip");
+	}
+
+	//Animation Events _______________________________________________________________________________
+
+	private void OnStand()
+    {
+		_animator.ResetTrigger("Trip");
+		_lockMovementEvent.Invoke(true);
     }
 }
