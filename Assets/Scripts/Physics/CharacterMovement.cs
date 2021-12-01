@@ -5,13 +5,13 @@ using UnityEngine;
 // Marco Cornejo, November 18th 2021
 public class CharacterMovement : MonoBehaviour
 {
-	[Header("Component References")]
-	[SerializeField] private Rigidbody _rigidbody;
+    [Header("Component References")]
+    [SerializeField] private Rigidbody _rigidbody;
     [SerializeField] private GroundCheck _groundCheck;
     [SerializeField] private ThirdPersonAnimation _animationController;
 
-	[Header("Horizontal Movement")]
-	[SerializeField] private bool _canMove = true;
+    [Header("Horizontal Movement")]
+    [SerializeField] private bool _canMove = true;
     [SerializeField] private float _turnSpeed = 5f;
     [SerializeField] private float _speed = 10f;
     [SerializeField] private float _acceleration = 10f;
@@ -20,6 +20,7 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] private float _manualGravity = 20f;
     [SerializeField] private float _jumpHeight = 1f;
     [SerializeField] private float _airControlPercentage = 0.1f;
+    [SerializeField] private bool _canJump = true;
 
     [Header("Crouching")]
     [SerializeField] private bool _canCrouch = true;
@@ -32,12 +33,12 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] private float _sprintAcceleration = 10f;
 
     [Header("Feedback")]
-	[SerializeField] private Vector3 _moveInput;
+    [SerializeField] private Vector3 _moveInput;
     [SerializeField] private Vector3 _lookDirection;
-    [SerializeField] private MovementMode _currentMovementMode = MovementMode.Regular;
+    [SerializeField] public MovementMode CurrentMovementMode { get; private set; } = MovementMode.Regular;
 
     public Vector3 GroundNormal => _groundCheck.GroundNormal;
-    private enum MovementMode
+    public enum MovementMode
     {
         Regular,
         Crouching,
@@ -75,7 +76,7 @@ public class CharacterMovement : MonoBehaviour
         float stateAcceleration = 0;
         float stateSpeed = 0;
 
-        switch (_currentMovementMode)
+        switch (CurrentMovementMode)
         {
             case MovementMode.Regular:
                 stateAcceleration = _acceleration;
@@ -122,12 +123,24 @@ public class CharacterMovement : MonoBehaviour
         _lookDirection = direction.normalized;
     }
 
+    public void Trip()
+    {
+        LockAllMovement();
+    }
+
+    private void LockAllMovement()
+    {
+        _canMove = false;
+        _canJump = false;
+        _canSprint = false;
+        _canCrouch = false;
+    }
     //Animation _____________________________________________________
     private void UpdateMovementAnimation()
     {
         _animationController.SetMovementAxis(_moveInput);
-        _animationController.ToggleCrouch(_currentMovementMode == MovementMode.Crouching);
-        _animationController.ToggleSprint(_currentMovementMode == MovementMode.Sprinting);
+        _animationController.ToggleCrouch(CurrentMovementMode == MovementMode.Crouching);
+        _animationController.ToggleSprint(CurrentMovementMode == MovementMode.Sprinting);
     }
 
     //Event Calls __________________________________________________
@@ -145,9 +158,9 @@ public class CharacterMovement : MonoBehaviour
 
     public void TryJump()
     {
-        if (!_groundCheck.IsGrounded) return;
+        if (!_groundCheck.IsGrounded || !_canJump) return;
 
-        _currentMovementMode = MovementMode.Regular;
+        CurrentMovementMode = MovementMode.Regular;
 
         float jumpSpeed = Mathf.Sqrt(2f * _manualGravity * _jumpHeight);
         Vector3 jumpVelocity = _rigidbody.velocity;
@@ -158,19 +171,19 @@ public class CharacterMovement : MonoBehaviour
 
     public void ToggleCrouch()
     {
-        if(_currentMovementMode == MovementMode.Crouching)
+        if(CurrentMovementMode == MovementMode.Crouching)
         {
-            _currentMovementMode = MovementMode.Regular;
+            CurrentMovementMode = MovementMode.Regular;
         }
         else if (_canCrouch)
         {
-            _currentMovementMode = MovementMode.Crouching;
+            CurrentMovementMode = MovementMode.Crouching;
         }
     }
 
     public void ToggleSprint(bool isSprinting)
     {
-        if (isSprinting && _canSprint) _currentMovementMode = MovementMode.Sprinting;
-        else _currentMovementMode = MovementMode.Regular;
+        if (isSprinting && _canSprint) CurrentMovementMode = MovementMode.Sprinting;
+        else CurrentMovementMode = MovementMode.Regular;
     }
 }

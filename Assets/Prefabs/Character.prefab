@@ -83,8 +83,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _characterMovement: {fileID: 0}
-  _customBool: 0
-  _movementInput: {x: 0, y: 0}
+  _characterStats: {fileID: 11400000, guid: c591fb09cdfc86d48954bccf44c264d8, type: 2}
+  _maxHealh: 100
+  _healthRegenRate: 0.2
+  _maxStamina: 100
+  _staminaRegenRate: 0.2
+  _sprintStaminaCost: 1
+  _healthEvent: {fileID: 11400000, guid: 033c7e05f1705b94f9586fe2a0cd98d9, type: 2}
+  _staminaEvent: {fileID: 11400000, guid: 51440c201b67fcb4f80dd5fc32ca3429, type: 2}
 --- !u!114 &4119158877194400605
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,7 +121,6 @@ MonoBehaviour:
   _sprintAcceleration: 10
   _moveInput: {x: 0, y: 0, z: 0}
   _lookDirection: {x: 0, y: 0, z: 0}
-  _currentMovementMode: 0
 --- !u!114 &4119158877194400602
 MonoBehaviour:
   m_ObjectHideFlags: 0
