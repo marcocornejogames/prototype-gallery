@@ -42,6 +42,15 @@ public class ThirdPersonAnimation : MonoBehaviour
 
     }
 
+	//Set Int _________________________________________________________________________________
+	public void SetActionType(int actionType)
+    {
+		_animator.SetInteger("ActionType", actionType);
+    }
+	public void SetAttackType(int attackType)
+    {
+		_animator.SetInteger("AttackType", attackType);
+    }
 	//Set Bools _______________________________________________________________________________
 	public void SetIsGrounded(bool isGrounded)
     {
@@ -67,7 +76,10 @@ public class ThirdPersonAnimation : MonoBehaviour
 	{
 		_animator.SetTrigger("Trip");
 	}
-
+	public void OnAction()
+    {
+		_animator.SetTrigger("Action");
+    }
 	//Animation Events _______________________________________________________________________________
 
 	private void OnStand()

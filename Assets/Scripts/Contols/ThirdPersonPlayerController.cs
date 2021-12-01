@@ -12,6 +12,7 @@ public class ThirdPersonPlayerController : MonoBehaviour
 	[SerializeField] private BoolEvent _onJumpEvent;
 	[SerializeField] private BoolEvent _onCrouchEvent;
 	[SerializeField] private BoolEvent _onSprintEvent;
+	[SerializeField] private BoolEvent _onActionEvent;
 
 	[Header("Feedback")]
 	[SerializeField] private Vector2 _moveInput;
@@ -57,6 +58,12 @@ public class ThirdPersonPlayerController : MonoBehaviour
     {
 		_onSprintEvent.Invoke(false);
     }
+
+	private void OnAction()
+    {
+		_onActionEvent.Invoke(true);
+    }
+
 	//Input Broadcasting _________________________________________
 	private void UpdateInputBroadcast()
     {

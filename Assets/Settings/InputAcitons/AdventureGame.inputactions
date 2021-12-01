@@ -30,6 +30,14 @@
                     "interactions": ""
                 },
                 {
+                    "name": "Action",
+                    "type": "Button",
+                    "id": "d30cdd16-75f9-47e5-8aa8-fd8548e04086",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
                     "name": "Crouch",
                     "type": "Button",
                     "id": "ea3b91a3-b818-4614-b74f-5144d3456f5c",
@@ -118,6 +126,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "SprintEnd",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7ec89c7d-0757-48f8-b0c7-6f79c159ef85",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Action",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

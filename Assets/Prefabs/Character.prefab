@@ -12,12 +12,14 @@ GameObject:
   - component: {fileID: 4119158877194402983}
   - component: {fileID: 4119158877194400603}
   - component: {fileID: 4119158877194400600}
+  - component: {fileID: 171088019988092355}
   - component: {fileID: 4119158877194400605}
   - component: {fileID: 4119158877194400602}
   - component: {fileID: 4119158877194400604}
   - component: {fileID: 1173197316380431114}
   - component: {fileID: 7611345425814274223}
   - component: {fileID: 5471779231043024838}
+  - component: {fileID: 5213305779039981478}
   m_Layer: 3
   m_Name: Character
   m_TagString: Untagged
@@ -92,6 +94,19 @@ MonoBehaviour:
   _sprintStaminaCost: 0.5
   _healthEvent: {fileID: 11400000, guid: 033c7e05f1705b94f9586fe2a0cd98d9, type: 2}
   _staminaEvent: {fileID: 11400000, guid: 51440c201b67fcb4f80dd5fc32ca3429, type: 2}
+--- !u!114 &171088019988092355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4119158877194402981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9c7a6ec1000ae14dbc41ddfb750a2a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animationController: {fileID: 0}
 --- !u!114 &4119158877194400605
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -255,6 +270,34 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: CharacterMovement, Assembly-CSharp
         m_MethodName: EnableMovement
         m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &5213305779039981478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4119158877194402981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 353c9cd28d61e2c4fa95cea8b4915228, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _triggerEvent: {fileID: 11400000, guid: 8bcd391e2111b6c4e97e35ae15d7833d, type: 2}
+  _broadcastEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 171088019988092355}
+        m_TargetAssemblyTypeName: ThirdPersonAction, Assembly-CSharp
+        m_MethodName: TryAction
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

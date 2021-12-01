@@ -11,21 +11,21 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] private ThirdPersonAnimation _animationController;
 
     [Header("Horizontal Movement")]
-    [SerializeField] private bool _canMove = true;
     [SerializeField] private float _turnSpeed = 5f;
     [SerializeField] private float _speed = 10f;
     [SerializeField] private float _acceleration = 10f;
+    [SerializeField] public bool CanMove { get; private set; } = true;
 
     [Header("Vertical Movement")]
     [SerializeField] private float _manualGravity = 20f;
     [SerializeField] private float _jumpHeight = 1f;
     [SerializeField] private float _airControlPercentage = 0.1f;
-    [SerializeField] private bool _canJump = true;
+    [SerializeField] public bool CanJump { get; private set; } = true;
 
     [Header("Crouching")]
-    [SerializeField] private bool _canCrouch = true;
     [SerializeField] private float _crouchSpeed = 5f;
     [SerializeField] private float _crouchAcceleration = 5f;
+    [SerializeField] public bool CanCrouch { get; private set; } = true;
 
     [Header("Sprinting")]
     [SerializeField] private bool _canSprint = true;
@@ -71,7 +71,7 @@ public class CharacterMovement : MonoBehaviour
     //Custom Methods _______________________________________________
     private void ApplyMovementPhysics()
     {
-        if (!_canMove) return;
+        if (!CanMove) return;
 
         float stateAcceleration = 0;
         float stateSpeed = 0;
@@ -119,7 +119,7 @@ public class CharacterMovement : MonoBehaviour
 
     private void SetLookDirection(Vector3 direction)
     {
-        if (!_canMove) return;
+        if (!CanMove) return;
         direction.y = 0f;
         _lookDirection = direction.normalized;
     }
@@ -158,7 +158,7 @@ public class CharacterMovement : MonoBehaviour
 
     public void TryJump()
     {
-        if (!_groundCheck.IsGrounded || !_canJump) return;
+        if (!_groundCheck.IsGrounded || !CanJump) return;
 
         CurrentMovementMode = MovementMode.Regular;
 
@@ -175,7 +175,7 @@ public class CharacterMovement : MonoBehaviour
         {
             CurrentMovementMode = MovementMode.Regular;
         }
-        else if (_canCrouch)
+        else if (CanCrouch)
         {
             CurrentMovementMode = MovementMode.Crouching;
         }
@@ -189,9 +189,9 @@ public class CharacterMovement : MonoBehaviour
 
     public void EnableMovement(bool canMove)
     {
-        _canMove = canMove;
-        _canJump = canMove;
+        CanMove = canMove;
+        CanJump = canMove;
         _canSprint = canMove;
-        _canCrouch = canMove;
+        CanCrouch = canMove;
     }
 }
