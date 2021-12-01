@@ -32,6 +32,9 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] private float _sprintSpeed = 15f;
     [SerializeField] private float _sprintAcceleration = 10f;
 
+    [Header("Stunts")]
+    [SerializeField] private float _tipForce = 5f;
+
     [Header("Feedback")]
     [SerializeField] private Vector3 _moveInput;
     [SerializeField] private Vector3 _lookDirection;
@@ -71,7 +74,6 @@ public class CharacterMovement : MonoBehaviour
     //Custom Methods _______________________________________________
     private void ApplyMovementPhysics()
     {
-        if (!CanMove) return;
 
         float stateAcceleration = 0;
         float stateSpeed = 0;
@@ -94,7 +96,7 @@ public class CharacterMovement : MonoBehaviour
                 break;
         }
 
-
+        if (!CanMove) stateAcceleration = 0;
         float control = _groundCheck.IsGrounded ? 1f : _airControlPercentage;
 
         Vector3 targetVelocity = _moveInput * stateSpeed;
@@ -126,12 +128,13 @@ public class CharacterMovement : MonoBehaviour
 
     public void Trip()
     {
+        if (!_groundCheck.IsGrounded) return;
         EnableMovement(false);
         ToggleSprint(false);
 
-        if (!_groundCheck.IsGrounded) return;
-        //_rigidbody.velocity = Vector3.zero;
+
         _animationController.OnTrip();
+        _rigidbody.AddForce(_moveInput * _tipForce);
     }
 
 
