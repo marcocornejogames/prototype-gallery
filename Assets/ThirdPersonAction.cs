@@ -13,6 +13,16 @@ public class ThirdPersonAction : MonoBehaviour
         _animationController = GetComponentInChildren<ThirdPersonAnimation>();
         _characterMovement = GetComponent<CharacterMovement>();
     }
+
+    public void TryActionRight()
+    {
+
+    }
+
+    public void TryActionLeft()
+    {
+
+    }
     public void TryAction()
     {
         if (!_characterMovement.CanMove) return;

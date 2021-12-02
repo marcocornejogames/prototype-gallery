@@ -30,9 +30,17 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Action",
+                    "name": "ActionRight",
                     "type": "Button",
                     "id": "d30cdd16-75f9-47e5-8aa8-fd8548e04086",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "ActionLeft",
+                    "type": "Button",
+                    "id": "81385d55-6975-427c-98ad-40365d65e2ea",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -132,11 +140,22 @@
                 {
                     "name": "",
                     "id": "7ec89c7d-0757-48f8-b0c7-6f79c159ef85",
-                    "path": "<Gamepad>/buttonEast",
+                    "path": "<Gamepad>/rightShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Action",
+                    "action": "ActionRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "587808e4-87c1-47b3-b653-6b94ddfc3774",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ActionLeft",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

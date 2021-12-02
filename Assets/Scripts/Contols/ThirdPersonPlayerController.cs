@@ -2,25 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Events;
 
 // Marco Cornejo, November 18th 2021
 public class ThirdPersonPlayerController : MonoBehaviour
 {
 	[Header("Component References")]
-	[SerializeField] private GameEvent<Vector2> _onMoveEvent;
-	[SerializeField] private GameEvent<Vector2> _onLookEvent;
-	[SerializeField] private BoolEvent _onJumpEvent;
-	[SerializeField] private BoolEvent _onCrouchEvent;
-	[SerializeField] private BoolEvent _onSprintEvent;
-	[SerializeField] private BoolEvent _onActionEvent;
+	[SerializeField] private CharacterMovement _characterMovement;
+	[SerializeField] private ThirdPersonAction _characterAction;
+	[SerializeField] private UnityEvent<Vector2> _onLookEvent;
 
 	[Header("Feedback")]
 	[SerializeField] private Vector2 _moveInput;
 	[SerializeField] private Vector2 _lookInput;
 
-	//Unity Messages ______________________________________________
-	void Start()
+    //Unity Messages ______________________________________________
+    private void Awake()
     {
+		_characterMovement = GetComponentInParent<CharacterMovement>();
+		_characterAction = GetComponentInParent<ThirdPersonAction>();
+    }
+    void Start()
+    {
+
     }
 
    	void Update()
@@ -28,7 +32,7 @@ public class ThirdPersonPlayerController : MonoBehaviour
 		UpdateInputBroadcast();
     }
 
-	//Input Calls _______________________________________________
+	//Input Sysem Calls _______________________________________________
 	private void OnMove(InputValue input)
 	{
 		_moveInput = input.Get<Vector2>();
@@ -41,33 +45,38 @@ public class ThirdPersonPlayerController : MonoBehaviour
 
 	private void OnJump()
     {
-		_onJumpEvent.Invoke(true);
+		_characterMovement.TryJump();
     }
 
 	private void OnCrouch()
     {
-		_onCrouchEvent.Invoke(true);
+		_characterMovement.ToggleCrouch();
     }
 
 	private void OnSprintStart()
     {
-		_onSprintEvent.Invoke(true);
+		_characterMovement.ToggleSprint(true);
     }
 
 	private void OnSprintEnd()
     {
-		_onSprintEvent.Invoke(false);
+		_characterMovement.ToggleSprint(false);
     }
 
-	private void OnAction()
+	private void OnActionLeft()
     {
-		_onActionEvent.Invoke(true);
+
+    }
+
+	private void OnActionRight()
+    {
+
     }
 
 	//Input Broadcasting _________________________________________
 	private void UpdateInputBroadcast()
     {
-		_onMoveEvent.Invoke(_moveInput);
+		_characterMovement.UpdateMoveInput(_moveInput);
 		_onLookEvent.Invoke(_lookInput);
     }
 }
