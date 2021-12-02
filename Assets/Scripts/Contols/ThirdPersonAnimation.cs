@@ -47,9 +47,13 @@ public class ThirdPersonAnimation : MonoBehaviour
     {
 		_animator.SetInteger("ActionType", actionType);
     }
-	public void SetAttackType(int attackType)
+	public void SetActionHand(int attackType)
     {
-		_animator.SetInteger("AttackType", attackType);
+		//Action hand:
+		//Left = 0
+		//Right = 1
+
+		_animator.SetInteger("ActionHand", attackType);
     }
 	//Set Bools _______________________________________________________________________________
 	public void SetIsGrounded(bool isGrounded)

@@ -65,12 +65,12 @@ public class ThirdPersonPlayerController : MonoBehaviour
 
 	private void OnActionLeft()
     {
-
+		_characterAction.TryActionLeft();
     }
 
 	private void OnActionRight()
     {
-
+		_characterAction.TryActionRight();
     }
 
 	//Input Broadcasting _________________________________________
